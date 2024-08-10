@@ -1,216 +1,243 @@
-// Завдання 1
-// В даному завданні створимо функцію, яка використовує метод `Array.from` для створення масиву зі списку користувачів з бази даних.
+// Task 1
+// In this task, we create a function that uses the `Array.from` method to create an array from a list of users in a database.
 
 /**
- * Функція `getUsersFromDatabase` отримує дані користувачів та використовує метод `Array.from` для створення масиву користувачів зі списку.
- * array - Вхідний масив
- * Повертає: Масив користувачів.
+ * The `getUsersFromDatabase` function retrieves user data and uses the `Array.from` method to create an array of users from the list.
+ * array - The input array
+ * Returns: An array of users.
  */
 function getUsersFromDatabase(array) {
-  // Використовуємо метод `Array.from` для створення масиву користувачів зі списку, елементи якого це об'єкти які міститять
-  // id який дорівнює id користувача,firstName який дорівнює firstName користувача в верхньому регістрі та years який дорівнює age користувача
-  // Повертаємо масив користувачів
+  let users = Array.from(array, (record) => {
+    return {
+      id: record.id,
+      firstName: record.name.toUpperCase(),
+      years: record.age,
+    };
+  });
+  return users;
 }
 
-// Приклад використання функції getUsersFromDatabase
+// Example usage of the getUsersFromDatabase function
 const userRecords = [
   { id: 1, name: "John", age: 30 },
   { id: 2, name: "Jane", age: 28 },
   { id: 3, name: "Mike", age: 32 },
 ];
-console.log("Завдання: 1 ==============================");
+console.log("Task 1 ==============================");
 
 console.log(getUsersFromDatabase(userRecords));
-// Виведе
+// Output:
 // [
 //   { id: 1, firstName: 'JOHN', years: 30 },
 //   { id: 2, firstName: 'JANE', years: 28 },
 //   { id: 3, firstName: 'MIKE', years: 32 }
 // ]
 
-// Завдання:2 - Видалення останнього елементу з масиву
+// Task 2 - Removing the last element from an array
 
 /**
- * Функція `removeLastElement` видаляє останній елемент з масиву, використовуючи метод `pop`.
- * Якщо масив порожній, повертає `undefined`.
- *  arr - Вхідний масив, з якого буде видалений останній елемент.
- * Повертає Видалений останній елемент або `undefined`, якщо масив порожній.
+ * The `removeLastElement` function removes the last element from the array using the `pop` method.
+ * If the array is empty, it returns `undefined`.
+ *  arr - The input array from which the last element will be removed.
+ * Returns: The removed last element or `undefined` if the array is empty.
  */
 function removeLastElement(arr) {
-  // Перевіряємо, чи масив не є порожнім, якщо порожній повертаємо  undefined
-  // Використовуємо метод `pop` для видалення останнього елементу з масиву
-  // Повертаємо оновлений масив
+  if (arr.length === 0) {
+    console.log("The array is empty");
+    return undefined;
+  }
+  arr.pop();
+  return arr;
 }
 
-// Приклад використання функції removeLastElement
-console.log("Завдання: 2 ==============================");
+// Example usage of the removeLastElement function
+console.log("Task 2 ==============================");
 
-console.log(removeLastElement([1, 2, 3, 4, 5])); // Виведе [1, 2, 3, 4]
+console.log(removeLastElement([1, 2, 3, 4, 5])); // Outputs [1, 2, 3, 4]
 
-// Завдання: 3 - Фільтрація масиву за певною умовою
+// Task 3 - Filtering an array by a specific condition
 
 /**
- * Функція `filterByCondition` фільтрує вхідний масив за певною умовою, використовуючи метод `filter`.
- *  arr - Вхідний масив, який буде фільтруватись.
- * condition - Функція-умова, яка визначає, чи задовольняє елемент умові.
- * Повертає: Новий масив, який містить елементи, що задовольняють умову.
+ * The `filterByCondition` function filters the input array by a specific condition using the `filter` method.
+ *  arr - The input array to be filtered.
+ * condition - A condition function that determines whether an element meets the condition.
+ * Returns: A new array containing elements that meet the condition.
  */
 function filterByCondition(arr, condition) {
-  // Використовуємо метод `filter` для фільтрації масиву
-  // Повертаємо відфільтрований масив
+  return arr.filter((item) => condition(item));
 }
 
-// Приклад використання функції filterByCondition
+// Example usage of the filterByCondition function
 
-let condition = (item) => item % 2 === 0; // Фільтруємо парні числа
-console.log("Завдання: 3 ==============================");
-console.log(filterByCondition([1, 2, 3, 4, 5], condition)); // Виведе [2, 4]
+let condition = (item) => item % 2 === 0; // Filter even numbers
+console.log("Task 3 ==============================");
+console.log(filterByCondition([1, 2, 3, 4, 5], condition)); // Outputs [2, 4]
 
-// Завдання: 4
+// Task 4
 
 /**
- * Функція `checkArray` перевіряє, чи є вхідний об'єкт масивом, використовуючи метод `Array.isArray`.
- *  obj - Вхідний об'єкт, який буде перевірятись.
- *Повертає: `true`, якщо об'єкт є масивом, `false` - у протилежному випадку.
+ * The `checkArray` function checks if the input object is an array using the `Array.isArray` method.
+ *  obj - The input object to be checked.
+ * Returns: `true` if the object is an array, `false` otherwise.
  */
 function checkArray(obj) {
-  // Перевіряємо, чи є об'єкт не null і не undefined
-  // Використовуємо метод `Array.isArray` для перевірки, чи є об'єкт масивом
-  // Повертаємо результат перевірки
-  // Якщо об'єкт є null або undefined, виводимо повідомлення про помилку Помилка: Вхідний об'єкт є null або undefined.
-  //Повертаємо false
+  if (obj === null || obj === undefined) {
+    console.log(`The input object is null or undefined`);
+  } else {
+    return Array.isArray(obj);
+  }
 }
 
-// Приклад використання функції checkArray
-console.log("Завдання:4 ==============================");
-console.log(checkArray([1, 2, 3, 4, 5])); // Виведе true
+// Example usage of the checkArray function
+console.log("Task 4 ==============================");
+console.log(checkArray([1, 2, 3, 4, 5])); // Outputs true
+console.log(checkArray('Smth')); // Outputs false
 
-// Завдання:5 - Створення нового масиву з переданих елементів
+// Task 5 - Creating a new array from the passed elements
 
 /**
- * Функція `createArray` створює новий масив з переданих елементів, використовуючи метод `Array.of`.
- * Повертає: elements - Елементи, з яких буде створений новий масив.
- * Повертає: Новий масив з переданих елементів.
+ * The `createArray` function creates a new array from the passed elements using the `Array.of` method.
+ * elements - The elements from which the new array will be created.
+ * Returns: A new array of the passed elements.
  */
 function createArray(...elements) {
-  // Перевіряємо, чи кількість переданих елементів більше нуля
-  // Використовуємо метод `Array.of` для створення нового масиву з переданих елементів
-  // Повертаємо створений масив
-  // Якщо не передано жодного елементу, виводимо повідомлення про помилку
-  //Повертаємо пустий масив
+  if (elements.length > 0) {
+    return Array.of(...elements);
+  } else {
+    console.log("The number of elements is insufficient to create an array");
+    return [];
+  }
 }
 
-// Приклад використання функції createArray
-console.log("Завдання:5 ==============================");
-console.log(createArray(1, 2, 3, 4, 5)); // Виведе [1, 2, 3, 4, 5]
+// Example usage of the createArray function
+console.log("Task 5 ==============================");
+console.log(createArray(1, 2, 3, 4, 5)); // Outputs [1, 2, 3, 4, 5]
 
-// Завдання: 6 - Отримання елементу масиву за заданим індексом
+// Task 6 - Getting an array element by a given index
 
 /**
- * Функція `getElementAtIndex` отримує елемент з масиву за заданим індексом, використовуючи метод `at`.
- *  arr - Вхідний масив.
- *  index - Індекс елементу, який потрібно отримати.
- * Повертає Елемент з масиву за заданим індексом або `undefined`, якщо індекс виходить за межі масиву.
+ * The `getElementAtIndex` function retrieves an element from the array by the given index using the `at` method.
+ *  arr - The input array.
+ *  index - The index of the element to retrieve.
+ * Returns: The element from the array by the given index or `undefined` if the index is out of bounds.
  */
 function getElementAtIndex(arr, index) {
-  // Перевіряємо, чи масив не є порожнім
-  // Повертаємо undefined
-  // Перевіряємо, чи індекс знаходиться в межах довжини масиву
-  // Отримуємо елемент з масиву за заданим індексом
-  // Повертаємо отриманий елемент
-  // Якщо індекс виходить за межі масиву,повертаємо undefined
+  if (arr.length === 0) {
+    return undefined;
+  } else if (index >= 0 && index < arr.length) {
+    return arr.at(index);
+  }
 }
 
-// Приклад використання функції getElementAtIndex
-console.log("Завдання:6 ==============================");
+// Example usage of the getElementAtIndex function
+console.log("Task 6 ==============================");
 
-console.log(getElementAtIndex([1, 2, 3, 4, 5], 2)); // Виведе 3
+console.log(getElementAtIndex([1, 2, 3, 4, 5], 2)); // Outputs 3
 
-// Завдання:7
+// Task 7
 
 /**
- * Об'єднує два масиви, обертає результат та повертає новий масив.
- *  arr1 - Перший масив.
- *  arr2 - Другий масив.
- * Повертає: Об'єднаний та обернутий масив.
+ * Combines two arrays, reverses the result, and returns a new array.
+ *  arr1 - The first array.
+ *  arr2 - The second array.
+ * Returns: The combined and reversed array.
  */
 function combineAndReverseArrays(arr1, arr2) {
-  // Перевіряємо, чи обидва аргументи є масивами
-  //  Якщо ні повертаємо пустий масив
-  // Об'єднуємо два масиви за допомогою методу `concat`
-  // Обертаємо отриманий об'єднаний масив за допомогою методу `reverse`
-  // Повертаємо об'єднаний та обернутий масив
+  if (Array.isArray(arr1) && Array.isArray(arr2)) {
+    let newArr = arr1.concat(arr2);
+    return newArr.reverse();
+  } else {
+    return [];
+  }
 }
 
-// Приклад використання функції combineAndReverseArrays
-console.log("Завдання:7 ==============================");
+// Example usage of the combineAndReverseArrays function
+console.log("Task 7 ==============================");
 
-console.log(combineAndReverseArrays([1, 2, 3], [4, 5, 6])); //Виведе [ 6, 5, 4, 3, 2, 1 ]
+console.log(combineAndReverseArrays([1, 2, 3], [4, 5, 6])); // Outputs [ 6, 5, 4, 3, 2, 1 ]
 
-// Завдання: 8
+// Task 8
 
 /**
- * Перевіряє, чи масив містить заданий елемент та повертає його індекс(и).
- *  arr - Вхідний масив.
- *  element - Елемент для пошуку.
- * Повертає: Масив індексів, де знайдено елемент, або пустий масив, якщо елемент не знайдено.
+ * Checks if the array contains a specified element and returns its index(es).
+ *  arr - The input array.
+ *  element - The element to search for.
+ * Returns: An array of indexes where the element is found, or an empty array if the element is not found.
  */
 function findElementIndexes(arr, element) {
-  // Перевіряємо, чи аргумент є масивом
-  // якщо ні повертаємо пустий масив
-  // Знаходимо індекс першого знайденого елементу за допомогою методу `indexOf`
-  // Знаходимо індекс останнього знайденого елементу за допомогою методу `lastIndexOf`
-  // Створюємо пустий масив індексів знайдених елементів
-  // Додаємо перший знайдений індекс, якщо елемент знайдено
-  // Додаємо останній знайдений індекс, якщо він відрізняється від першого
-  // Повертаємо масив індексів
+  if (Array.isArray(arr)) {
+    let firstIndex = arr.indexOf(element);
+    let lastIndex = arr.lastIndexOf(element);
+    let arrNew = [];
+    if (firstIndex !== -1) {
+      arrNew.push(firstIndex);
+    }
+    if (lastIndex !== firstIndex) {
+      arrNew.push(lastIndex);
+    }
+    return arrNew;
+  } else {
+    return [];
+  }
 }
 
-// Приклад використання функції findElementIndexes
-console.log("Завдання:8 ==============================");
+// Example usage of the findElementIndexes function
+console.log("Task 8 ==============================");
 
-console.log(findElementIndexes([1, 2, 3, 4, 5, 2], 2)); //Виведе [ 1, 5 ]
+console.log(findElementIndexes([1, 2, 3, 4, 5, 2], 2)); // Outputs [ 1, 5 ]
 
-// Завдання:9
+// Task 9
 
 /**
- * Копіює та переставляє задану кількість елементів з масиву в нове місце за допомогою методу `copyWithin`.
- *  arr - Вхідний масив, з якого будуть копіюватись елементи.
- *  target - Індекс, починаючи з якого розміщувати копійовані елементи.
- *  start - Індекс, з якого починається копіювання елементів.
- *  end - Індекс, на якому закінчується копіювання елементів (не включно).
- * Повертає: Модифікований масив з копійованими та переставленими елементами.
+ * Copies and swaps a specified number of elements from the array to a new location using the `copyWithin` method.
+ *  arr - The input array from which elements will be copied.
+ *  target - The index at which to place the copied elements.
+ *  start - The index at which to start copying elements.
+ *  end - The index at which to end copying elements (not included).
+ * Returns: The modified array with copied and swapped elements.
  */
 function copyAndSwapElements(arr, target, start, end) {
-  // Перевіряємо, чи індекси належать межам масиву якщо ні виводимо рядок Неприпустимі індекси
-  // Копіюємо та переставляємо елементи за допомогою методу `copyWithin`
-  // Повертаємо модифікований масив
+  if (
+    start < 0 ||
+    start >= arr.length ||
+    end < 0 ||
+    end > arr.length ||
+    target < 0 ||
+    target >= arr.length
+  ) {
+    console.log("Invalid indexes");
+    return arr;
+  } else {
+    return arr.copyWithin(target, start, end);
+  }
 }
 
-// Приклад використання функції copyAndSwapElements
+// Example usage of the copyAndSwapElements function
 
-console.log("Завдання:9 ==============================");
+console.log("Task 9 ==============================");
 
-console.log(copyAndSwapElements([1, 2, 3, 4, 5], 0, 2, 4)); // Виведе [3, 4, 3, 4, 5]
+console.log(copyAndSwapElements([1, 2, 3, 4, 5], 0, 2, 4)); // Outputs [3, 4, 3, 4, 5]
 
-// Завдання:10
-// В даному завданні ми створимо функцію, яка використовує метод `sort` для сортування масиву об'єктів за допомогою певного ключа.
+
+// Task: 10
+// In this task, we will create a function that uses the `sort` method to sort an array of objects by a specific key.
 
 /**
- * Функція `sortByKey` сортує вхідний масив об'єктів за допомогою методу `sort` та заданого ключа.
- *  arr - Вхідний масив об'єктів.
- * Повертає:  Ключ, за яким потрібно сортувати об'єкти.
- * Повертає: Відсортований масив об'єктів.
+ * The `sortByKey` function sorts an input array of objects using the `sort` method and a specified key.
+ *  arr - The input array of objects.
+ * Returns: The key by which the objects should be sorted.
+ * Returns: The sorted array of objects.
  */
 function sortByKey(arr, key) {
-  // Використовуємо метод `sort` передаємо в нього два аргументи a та b, для сортування масиву об'єктів за заданим ключем
-  // якщо a[key] < b[key] повертаємо -1
-  // якщо a[key] > b[key] повертаємо 1
-  // інакше повертаємо 0
-  // Повертаємо відсортований масив об'єктів
+  arr.sort((a, b) => { 
+    if(a[key] < b[key]) { return -1;}
+    else if(a[key] > b[key]) { return 1;}
+    else { return 0; }
+  });
+  return arr;
 }
 
-console.log("Завдання: 10 ==============================");
+console.log("Task: 10 ==============================");
 
 let unsortedArray = [
   { name: "John", age: 25 },
@@ -218,161 +245,176 @@ let unsortedArray = [
   { name: "Mike", age: 20 },
 ];
 console.log(sortByKey(unsortedArray, "age"));
-// Виведе:
+// Output:
 // [
 //   { name: 'Mike', age: 20 },
 //   { name: 'John', age: 25 },
 //   { name: 'Jane', age: 30 }
 // ]
 
-// Завдання: 11
+// Task: 11
 
 /**
- * Функція `customEvery` перевіряє, чи всі елементи масиву задовольняють заданому умову за допомогою методу `every`.
- *  arr - Вхідний масив, який буде перевірятись.
- * condition - Функція-умова, яка буде застосовуватись до кожного елементу масиву.
- *Повертає: Результат перевірки.
+ * The `customEvery` function checks whether all elements in an array satisfy a given condition using the `every` method.
+ *  arr - The input array to be checked.
+ * condition - The condition function that will be applied to each element of the array.
+ * Returns: The result of the check.
  */
 function customEvery(arr, condition) {
-  // Перевірка вхідних параметрів
-  // якщо arr не масив повертаємо false
-  // якщо condition не function повертаємо false
-  // Використання методу `every` для перевірки умови для кожного елементу масиву
-  // Повернення результату перевірки
+  if (!Array.isArray(arr)){ return false; }
+  if (typeof(condition) !== "function"){ return false; }
+  return arr.every(condition);
 }
 
 const numbers = [2, 4, 6, 8, 10];
 
-console.log("Завдання: 11 ==============================");
-console.log(customEvery(numbers, (num) => num % 2 === 0)); // Виведе true
+console.log("Task: 11 ==============================");
+console.log(customEvery(numbers, (num) => num % 2 === 0)); // Output: true
 
-// Завдання: 12
+// Task: 12
 
 /**
- * Функція `customFill` заповнює вказаний діапазон елементів масиву заданою значенням за допомогою методу `fill`.
- *  arr - Вхідний масив, який буде заповнюватись.
- * value - Значення, яким будуть заповнені елементи масиву.
- *  start - Початковий індекс для заповнення (включно).
- *  end - Кінцевий індекс для заповнення (не включаючи).
- * Повертає: Заповнений масив.
+ * The `customFill` function fills a specified range of elements in an array with a given value using the `fill` method.
+ *  arr - The input array to be filled.
+ * value - The value that will fill the array elements.
+ *  start - The starting index for filling (inclusive).
+ *  end - The ending index for filling (exclusive).
+ * Returns: The filled array.
  */
 function customFill(arr, value, start = 0, end = arr.length) {
-  // Перевірка вхідних параметрів
-  // якщо arr не масив повертаємо false
-  // якщо start та end не входять в діапазон від 0 до довжини масиву arr повертаємо false
-  // Використання методу `fill` для заповнення вказаного діапазону елементів масиву заданим значенням
-  // Повернення заповненого масиву
+  if (!Array.isArray(arr)) { return false; }
+  if (start < 0 || end >= arr.length || start > end) { return false; }
+  return arr.fill(value, start, end);
 }
 
-// Приклад використання функції customFill
-console.log("Завдання: 12 ==============================");
-console.log(customFill([1, 2, 3, 4, 5], 0, 1, 4)); // Виведе [ 1, 0, 0, 0, 5 ]
+// Example usage of the customFill function
+console.log("Task: 12 ==============================");
+console.log(customFill([1, 2, 3, 4, 5], 0, 1, 4)); // Output: [ 1, 0, 0, 0, 5 ]
 
-// Завдання: 13
+// Task: 13
 
 /**
- * Функція `customShift` видаляє перший елемент з масиву за допомогою методу `shift`.
- * arr - Вхідний масив, з якого буде видалено перший елемент.
- * Повертає - Видалений елемент та оновлений масив або undefined, якщо масив порожній.
+ * The `customShift` function removes the first element from an array using the `shift` method.
+ * arr - The input array from which the first element will be removed.
+ * Returns - The removed element and the updated array, or undefined if the array is empty.
  */
 function customShift(arr) {
-  // перевірка на масив,якщо ні повертаємо undefined
-  // перевірка чи масив не пустий,якщо так повертаємо undefined
-  // видаляємо перший елемент та записуємо його в змінну shiftedElement
-  // повертаємо об'єкт { shiftedElement, arr }
+  if (!Array.isArray(arr)) { return undefined; };
+  if (arr.length === 0){ return undefined; };
+  let shiftedElement = arr.shift();
+  return {shiftedElement, arr};
 }
 
-// Приклад використання функції customShift
+// Example usage of the customShift function
 
-console.log("Завдання: 13 ==============================");
+console.log("Task: 13 ==============================");
 
-console.log(customShift([1, 2, 3, 4, 5])); // Виведе { shiftedElement: 1, arr: [ 2, 3, 4, 5 ] }
+console.log(customShift([1, 2, 3, 4, 5])); // Output: { shiftedElement: 1, arr: [ 2, 3, 4, 5 ] }
 
-// Завдання: 14
+// Task: 14
 
 /**
- * Функція `customUnshift` додає один або більше елементів на початок масиву за допомогою методу `unshift`.
- *  arr - Вхідний масив, до якого будуть додані елементи.
- *  elements - Елементи, які будуть додані на початок масиву.
- *  Нова довжина масиву після додавання елементів.
+ * The `customUnshift` function adds one or more elements to the beginning of an array using the `unshift` method.
+ *  arr - The input array to which elements will be added.
+ *  elements - The elements to be added to the beginning of the array.
+ *  Returns: The new length of the array after the elements have been added.
  */
 function customUnshift(arr, ...elements) {
-  // Перевіряємо, чи вхідний параметр є масивом
-  // Зберігаємо початкову довжину масиву в змінну initialLength
-  // Додаємо елементи на початок масиву за допомогою методу `unshift` та циклу for, початкове значення лічильника на 1 менше ніж довжина масива,
-  // при кожній ітерації лічильник зменшуємо на 1 та продовжуємо поки лічильник більше, або дорівнює нулю
-  // Отримуємо нову довжину масиву
-  // повертаємо об'єкт {initialLength, newLength, arr }
+  if (Array.isArray(arr)){
+    let initialLength = arr.length;
+    for(let i = elements.length-1; i >= 0; i--){
+      arr.unshift(elements[i]);
+    }
+    const newLength = arr.length;
+  return { initialLength, newLength, arr };
+  } else { return; }
 }
 
-console.log("Завдання: 14 ==============================");
+console.log("Task: 14 ==============================");
 
-console.log(customUnshift([2, 3, 4, 5], 1, 0)); // Виведе { initialLength: 4, newLength: 6, arr: [ 1, 0, 2, 3, 4, 5 ] }
+console.log(customUnshift([2, 3, 4, 5], 1, 0)); // Output: { initialLength: 4, newLength: 6, arr: [ 1, 0, 2, 3, 4, 5 ] }
 
 //--------------------------------------
 
-// Завдання: 15
+// Task: 15
 
 /**
- * Функція `customSome` перевіряє, чи хоча б один елемент масиву задовольняє задану умову за допомогою методу `some`.
- *  arr - Вхідний масив, який буде перевірятись.
- * condition - Функція-умова, яка буде застосовуватись до кожного елементу масиву.
- * Повертає: Результат перевірки.
+ * The `customSome` function checks whether at least one element in an array satisfies a given condition using the `some` method.
+ *  arr - The input array to be checked.
+ * condition - The condition function that will be applied to each element of the array.
+ * Returns: The result of the check.
  */
 function customSome(arr, condition) {
-  // Перевіряємо, чи вхідний параметр є масивом якщо ні повертаємо false
-  // Перевіряємо, чи condition є функцією  якщо ні повертаємо false
-  // Використовуємо метод `some` для перевірки умови хоча б для одного елементу масиву
-  // Повертаємо результат перевірки
+  if (!Array.isArray(arr)) {
+    return false;
+  }
+  if (typeof condition !== "function") {
+    return false;
+  }
+  return arr.some(condition);
 }
-console.log("Завдання: 15 ==============================");
+console.log("Task: 15 ==============================");
 
 const isEven = (number) => number % 2 === 0;
 console.log(customSome([1, 2, 3, 4, 5], isEven));
-// Виведе true
+// Output: true
 
-// Завдання: 16
+// Task: 16
 
 /**
 
-Функція customAt повертає елемент масиву за заданим індексом.
- arr - Вхідний масив, з якого буде отриманий елемент.
- index - Індекс елементу, який потрібно отримати.
-Повертаємо- Елемент масиву або undefined, якщо індекс виходить за межі масиву.
+The customAt function returns an element of an array at a given index.
+ arr - The input array from which the element will be retrieved.
+ index - The index of the element to be retrieved.
+Returns - The element of the array or undefined if the index is out of bounds.
 */
 function customAt(arr, index) {
-  // Перевіряємо, чи вхідний параметр є масивом якщо ні повертаємо undefined
-  // Перевіряємо, чи індекс виходить за межі масиву якщо ні повертаємо undefined
-  // Отримуємо елемент масиву за заданим індексом
-  // перевіремо якого типу елемент ми отримали,якщо рядок виведом в консоль -Елемент є рядком,числом - Елемент є числом, об`єктом -Елемент є обєктом
+  if (!Array.isArray(arr)) {
+    return false;
+  }
+  if (index < 0 || index > arr.length) {
+    return undefined;
+  }
+  let element = arr.at(index);
+  if (typeof (element) === "string") {
+    console.log("The element is a string.");
+  } else if (typeof(element) === "object") {
+    console.log("The element is an object.");
+  } else if (typeof(element) === "number") {
+    console.log("The element is a number.");
+  }
+  return element;
 }
 
-console.log("Завдання: 16 ==============================");
+console.log("Task: 16 ==============================");
 console.log(customAt([1, 2, 3, 4, 5], 2));
-// Виведе
-// Елемент є числом.
+// Output:
+// The element is a number.
 // 3
 
 //--------------------------------------
 
-// Завдання 17
+// Task: 17
 
 /**
-  
-  Функція customIncludes перевіряє, чи масив містить заданий елемент за допомогою методу includes.
-   arr - Вхідний масив, який буде перевірятись.
-   element - Елемент, наявність якого перевіряється.
-  Повертає: Результат перевірки.
+  The customIncludes function checks whether an array contains a given element using the includes method.
+   arr - The input array to be checked.
+   element - The element to check for presence in the array.
+  Returns: The result of the check.
   */
 function customIncludes(arr, element) {
-  // Перевіряємо, чи вхідний параметр є масивом
-  // Використовуємо метод includes для перевірки наявності елемента в масиві
-  // За допомогою методу filter перевіряємо скільки разів в масиві зустрічається елемент та виводимо число в консоль
-  //Повертаємо результат
+  if (!Array.isArray(arr)) {
+    console.log("Error: The input parameter must be an array.");
+    return false;
+  }
+  let elementIn = arr.includes(element);
+  let count = arr.filter((item) => item === element).length;
+  console.log(count);
+  return elementIn;
 }
 
-console.log("Завдання: 17 ==============================");
+console.log("Task: 17 ==============================");
 console.log(customIncludes(["apple", "banana", "orange", "apple"], "banana"));
-// Виведе
+// Output:
 // 1
 // true
